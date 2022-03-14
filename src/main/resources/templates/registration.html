@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta lang="en-US" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    </head>
+    <body>
+        <form method="POST" th:action="@{/logout}">
+            <input type="submit">Enviar texto</input>
+        </form>
+        <div>Captura datos del usuario<div>
+                <form method="POST" th:object="${registrationForm}" th:action="@{/registro}">
+                    <div>
+                        <label>Nombre: </label>
+                        <input type="text" th:field="*{nombre}"/>
+                    </div>
+                    <div>
+                        <label>Ap. paterno: </label>
+                        <input type="text" th:field="*{apPaterno}"/>
+                    </div>
+                    <div>
+                        <label>Ap. materno</label>
+                        <input type="text" th:field="*{apMaterno}"/>
+                    </div>
+                    <div>
+                        <label>Correo: </label>
+                        <input type="text" th:field="*{correo}"/>
+                    </div>
+                    <div>
+                        <label>Nombre usuario: </label>
+                        <input type="text" th:field="*{nombreUsuario}"/>
+                    </div>
+                    <div>
+                        <label>Contraseña: </label>
+                        <input type="password" th:field="*{contrasena}"/>
+                    </div>
+                    <div>
+                        <label>Edad: </label>
+                        <input type="text" th:field="*{edad}"/>
+                    </div>
+                    <button type="submit">Enviar</button>
+                </form>
+    </body>
+</html>

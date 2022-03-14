@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html>
+    <head>
+        <title>Publicación</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta lang="en-US" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    </head>
+    <body>
+        <div>
+            <form method="POST" th:action="@{/logout}">
+                <input type="submit">Logout</input>
+            </form>
+        </div>
+        <div>
+            <form method="POST" th:object="${publicacion}" th:action="@{/publicacion/nueva}">
+                <div>Publicación</div>
+                <div>
+                    <label>Categoría(s): </label>
+                    <div th:each="c : ${listaCategorias}">
+                        <input type="checkbox" th:field="*{categoria}" th:value="${c.id}">
+                        <span th:text="${c.descripcion}">DESCRIPCION</span>
+                    </div>
+                   <!--<select th:field="*{categoria}">
+                        <div th:each="categoria : ${categorias}">
+                            <option th:value="${categoria.id}" th:text="${categoria.descripcion}">CATEGORIA</option>
+                        </div> 
+                        <span th:if="${#fields.hasErrors('categoria')}"
+                              th:errors="*{categoria}">
+                                  ERROR
+                        </span>
+                    </select>-->
+                </div>
+                <div>
+                    <label>Título: </label>
+                    <input type="text" placeholder="titulo" th:field="*{titulo}"/>
+                </div>
+                <div>
+                    <label>Texto: </label>
+                    <textarea th:field="*{texto}"></textarea>
+                    <span th:if="${#fields.hasErrors('texto')}" th:errors="*{texto}">
+                        ERROR
+                    </span>
+                </div>
+                <div>
+                    <input type="submit">Envía tu publicación</input>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>
