@@ -4,6 +4,8 @@
  */
 package com.ivangarcia.blog.models;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,6 +19,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -25,6 +29,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.engine.FetchStrategy;
+import org.springframework.data.rest.core.annotation.RestResource;
+import org.springframework.hateoas.server.core.Relation;
 /**
  *
  * @author IvanGarMo
@@ -33,6 +39,8 @@ import org.hibernate.engine.FetchStrategy;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@RestResource(rel="posts", path="posts")
+@Relation(value="post", collectionRelation="posts")
 public class Publicacion {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -52,6 +60,7 @@ public class Publicacion {
             inverseJoinColumns=@JoinColumn(name="id_categoria", referencedColumnName="id"))
     private List<Categoria> categoria;
     
+    @Temporal(TemporalType.TIMESTAMP)
     private Date creado;
     
     @ManyToOne
@@ -78,5 +87,23 @@ public class Publicacion {
             this.categoria.add(c);
             this.categoria.forEach(cat -> c.getPublicaciones().add(this));
         }
+    }
+    
+    public static Publicacion toPublicacion(PublicacionResponse pr) throws ParseException {
+        Publicacion p = new Publicacion();
+        p.setTitulo(pr.getTitulo());
+        p.setTexto(pr.getTexto());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        p.setCreado(sdf.parse(pr.getCreado()));
+        
+        List<Categoria> categorias = new ArrayList<>();
+        pr.getCategorias().forEach(i -> {
+            Categoria c = new Categoria();
+            c.setId(i);
+            categorias.add(c);
+        });
+        p.setCategoria(categorias);
+        
+        return p;
     }
 }

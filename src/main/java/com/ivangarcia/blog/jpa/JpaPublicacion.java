@@ -6,11 +6,12 @@ package com.ivangarcia.blog.jpa;
 
 import com.ivangarcia.blog.models.Publicacion;
 import org.springframework.data.repository.CrudRepository;
-
+import org.springframework.data.domain.Pageable;
+import java.util.List;
 /**
  *
  * @author IvanGarMo
  */
 public interface JpaPublicacion extends CrudRepository<Publicacion, Integer> {
-    
+    List<Publicacion> findAll(Pageable page);
 }

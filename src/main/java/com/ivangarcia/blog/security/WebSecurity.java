@@ -36,7 +36,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .and().formLogin().loginPage("/login")
                 .usernameParameter("name").passwordParameter("pwd")
                 .defaultSuccessUrl("/registro")
-                .and().logout().logoutUrl("/logout").logoutSuccessUrl("/login");
+                .and().logout().logoutUrl("/logout").logoutSuccessUrl("/login")
+                .and().csrf().disable();
     }
     
     @Override
