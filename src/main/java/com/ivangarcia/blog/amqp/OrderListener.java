@@ -2,11 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.ivangarcia.blog.async;
+package com.ivangarcia.blog.amqp;
 
 import com.ivangarcia.blog.models.Publicacion;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.jms.annotation.JmsListener;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
 /**
@@ -15,10 +15,10 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Slf4j
-public class PublicacionListener {
+public class OrderListener {
     
-    @JmsListener(destination = "tacocloud.order.queue")
-    public void receivePublicacion(Publicacion p) {
-        log.info(p.toString());
+    @RabbitListener(queues = "tacocloud.order.queue")
+    public void receivePublicacion(Publicacion publicacion) {
+        log.info("Publicacion: "+publicacion.toString());
     }
 }
