@@ -4,6 +4,7 @@
  */
 package com.ivangarcia.blog.models;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -41,7 +42,7 @@ import org.springframework.hateoas.server.core.Relation;
 @Entity
 @RestResource(rel="posts", path="posts")
 @Relation(value="post", collectionRelation="posts")
-public class Publicacion {
+public class Publicacion implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;

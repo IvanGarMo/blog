@@ -24,7 +24,7 @@ import org.springframework.http.HttpStatus;
 public class RecentPostsRestController {
     
     @Autowired
-    private JpaPublicacion jpaRepo;d
+    private JpaPublicacion jpaRepo;
     
     @GetMapping("/posts/recent")
     public ResponseEntity<CollectionModel<PublicacionModel>> getRecent() {
